@@ -79,11 +79,18 @@ docker compose up -d --build
 docker compose exec php composer install
 docker compose exec php cp .env.example .env
 docker compose exec php php artisan key:generate
-docker compose exec php php artisan migrate --seed
+
+docker compose exec php sh -c "mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache"
+docker compose exec php sh -c "chmod -R 777 storage bootstrap/cache"
+
+docker compose exec php php artisan migrate:fresh --seed
 
 docker compose exec php npm install
 docker compose exec php npm run build
 ```
+### 起動後、以下にアクセスしてください。
+
+- アプリ: http://localhost:8080
 ## 🔑 テスト用アカウント
 
 | 種別 | メール | パスワード |
@@ -95,6 +102,27 @@ docker compose exec php npm run build
 ![ダッシュボード](images/ダッシュボード.png)
 ![備品画面](images/備品一覧.png)
 ![カテゴリー画面](images/カテゴリー一覧.png)
+
+## 🔧 トラブルシューティング
+
+### DB接続エラーが出る場合
+
+`.env` のDB設定が、`docker-compose.yml` の MySQL 設定と一致しているか確認してください。
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=inventory_manager
+DB_USERNAME=laravel
+DB_PASSWORD=password
+```
+
+設定変更後は、以下を実行してください。
+
+```bash
+docker compose exec php php artisan optimize:clear
+```
 
 ## 💡 工夫した点
 - Policyを用いた権限制御により、安全な操作制限を実現
