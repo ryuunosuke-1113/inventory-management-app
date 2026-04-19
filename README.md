@@ -93,7 +93,9 @@ docker compose exec php npm run build
 | 一般ユーザー | user@example.com | password |
 ## 📸 スクリーンショット
 
-（ここに画像）
+![ダッシュボード](images/ダッシュボード.png)
+![備品画面](images/備品一覧.png)
+![カテゴリー画面](images/カテゴリー一覧.png)
 
 ## 💡 工夫した点
 - Policyを用いた権限制御により、安全な操作制限を実現
