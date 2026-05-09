@@ -8,12 +8,13 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpng-dev \
     libonig-dev \
+    libsqlite3-dev \
     libxml2-dev \
     default-mysql-client \
     nodejs \
     npm \
     netcat-openbsd \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
+    && docker-php-ext-install pdo pdo_mysql pdo_sqlite mbstring zip exif pcntl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
