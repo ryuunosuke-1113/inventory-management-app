@@ -23,6 +23,8 @@ php artisan view:clear
 
 touch database/database.sqlite
 
+php artisan config:cache
+
 php artisan migrate --seed --force
 
 php-fpm -D
